@@ -113,12 +113,9 @@ function ImageUploader({ onFileChange, previewURL }) {
 function TextInputs({ setString1, setString2, setFloat1, setFloat2, setFloat3 }) {
   return (
     <div className="text-inputs">
-      <h2>Text and Number Inputs:</h2>
+      <h2>Function Input</h2>
+      <p>Functions should be in the format z * z * z - 1, cos(z*sin(z)) - 1, etc.</p>
       <input type="text" placeholder="Enter string 1" onChange={e => setString1(e.target.value)} />
-      <input type="text" placeholder="Enter string 2" onChange={e => setString2(e.target.value)} />
-      <input type="number" placeholder="Enter float 1" onChange={e => setFloat1(parseFloat(e.target.value))} />
-      <input type="number" placeholder="Enter float 2" onChange={e => setFloat2(parseFloat(e.target.value))} />
-      <input type="number" placeholder="Enter float 3" onChange={e => setFloat3(parseFloat(e.target.value))} />
     </div>
   );
 }
