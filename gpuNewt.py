@@ -199,9 +199,9 @@ class NewtonFractalGenerator:
         normalized_iterations = self.fractal_data / max_iteration
 
         # Using sin/cos for colors based on the buffers and normalize
-        r_normalized = (np.sin(3 * np.pi * normalized_iterations) + 1) / 2
-        g_normalized = (np.sin(3 * np.pi * self.final_zx) + 1) / 2
-        b_normalized = (np.cos(3 * np.pi * self.final_zy) + 1) / 2
+        r_normalized = (np.sin(10 * np.pi * normalized_iterations) + 1) / 2
+        g_normalized = (np.sin(10 * np.pi * self.final_zx) + 1) / 2
+        b_normalized = (np.cos(10 * np.pi * self.final_zy) + 1) / 2
 
         # Apply gamma correction to enhance brightness
         """

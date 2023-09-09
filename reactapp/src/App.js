@@ -11,32 +11,14 @@ class App extends Component {
       selectedFile: null,
       processedImage: null,
       string1: '',
-      string2: '',
-      float1: 0,
-      float2: 0,
-      float3: 0,
       previewURL: null,
 
     };
   }
 
-  // Inside your App component
   setString1 = (value) => {
     this.setState({ string1: value });
   };
-  setString2 = (value) => {
-    this.setState({ string2: value });
-  };
-  setFloat1 = (value) => {
-    this.setState({ float1: value });
-  };
-  setFloat2 = (value) => {
-    this.setState({ float2: value });
-  };
-  setFloat3 = (value) => {
-    this.setState({ float3: value });
-  };
-
 
   onFileChange = (event) => {
     const file = event.target.files[0];
@@ -47,23 +29,25 @@ class App extends Component {
   };
 
   onUpload = async () => {
+    this.setState({ uploading: true, processedImage: null });
     const { selectedFile, string1, string2, float1, float2, float3 } = this.state;
     const formData = new FormData();
     formData.append('image', selectedFile);
     formData.append('string1', string1);
-    formData.append('string2', string2);
-    formData.append('float1', float1);
-    formData.append('float2', float2);
-    formData.append('float3', float3);
 
     try {
       const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
+        onUploadProgress: (progressEvent) => {
+          let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          this.setState({ progress: percentCompleted });
+        },
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      this.setState({ processedImage: response.data.processed_path });
+      this.setState({ processedImage: response.data.processed_path, uploading: false });
     } catch (error) {
+      this.setState({ uploading: false });
       alert('Oops, something went wrong! (⌒_⌒;)');
     }
   };
@@ -77,16 +61,12 @@ class App extends Component {
           <div>
             <TextInputs 
               setString1={this.setString1} 
-              setString2={this.setString2} 
-              setFloat1={this.setFloat1} 
-              setFloat2={this.setFloat2} 
-              setFloat3={this.setFloat3} 
             />
             <button onClick={this.onUpload}>Upload</button>
           </div>
           <ImageUploader onFileChange={this.onFileChange} previewURL={previewURL} />
         </div>
-        <ProcessedImageView processedImage={processedImage} />
+        <ProcessedImageView processedImage={processedImage} uploading={this.state.uploading} />
       </div>
     );
   }
@@ -141,12 +121,15 @@ class TerminalComponent extends Component {
   }
 }
 
-function ProcessedImageView({ processedImage }) {
+
+function ProcessedImageView({ processedImage, uploading }) {
   return (
     <div className="content-wrapper">
       <div className="image-section processed">
         {processedImage ? (
           <img src={`http://127.0.0.1:5000${processedImage}`} alt="Processed" />
+        ) : uploading ? (
+          <span className="rotate-icon">🕑</span>
         ) : (
           <p>No processed image to show. (・_・;)</p>
         )}

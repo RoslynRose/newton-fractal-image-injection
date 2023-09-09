@@ -19,17 +19,9 @@ def upload_image():
 
     image = request.files['image']
     string1 = request.form.get('string1')
-    string2 = request.form.get('string2')
-    float1 = float(request.form.get('float1'))
-    float2 = float(request.form.get('float2'))
-    float3 = float(request.form.get('float3'))
     
     # Print the received variables for debugging
     print(f"Received string1: {string1}")
-    print(f"Received string2: {string2}")
-    print(f"Received float1: {float1}")
-    print(f"Received float2: {float2}")
-    print(f"Received float3: {float3}")
 
     if image.filename == '':
         return jsonify({"error": "No selected image"}), 400
@@ -49,7 +41,7 @@ def upload_image():
         
         # Open and process image to grayscale
         img = Image.open(original_path)
-        fractal_generator = gpuNewt.NewtonFractalGenerator(width=800, height=800, image_path=original_path)
+        fractal_generator = gpuNewt.NewtonFractalGenerator(width=1920, height=1920, image_path=original_path)
         img = fractal_generator.generate_image(string1, 1)
         processed_path = os.path.join(PROCESSED_FOLDER, new_filename)
         img.save(processed_path)
