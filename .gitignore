@@ -1,2 +1,5 @@
 venv/
 venv/
+processed_images/*
+flask_image_uploads/*
+__pycache__/

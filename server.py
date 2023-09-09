@@ -3,6 +3,8 @@ from flask_cors import CORS
 from PIL import Image, ImageOps
 import os
 
+import gpuNewt
+
 app = Flask(__name__, static_folder="processed_images")
 CORS(app)
 UPLOAD_FOLDER = "flask_image_uploads"
@@ -39,7 +41,9 @@ def upload_image():
         image.save(original_path)
         
         # Open and process image to grayscale
-        img = Image.open(original_path).convert('L')
+        img = Image.open(original_path)
+        fractal_generator = gpuNewt.NewtonFractalGenerator(width=800, height=800, image_path=original_path)
+        img = fractal_generator.generate_image("z*z*z-1", 1)
         processed_path = os.path.join(PROCESSED_FOLDER, filename)
         img.save(processed_path)
         
