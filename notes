@@ -1,0 +1,22 @@
+convert image
+	takes string and var and does this
+owo
+
+problem is probably in the definitions for real and imaginary image values
+
+interpolation_func = interp2d(x, y, image_array, kind='cubic')
+image_interpolated = interpolation_func(x_new, y_new)
+complex_grid = xx + 1j * image_normalized * yy
+
+could also be the coloring method (precomputed zeros could be injected with sympy)
+
+interesting!!!
+modulation_factor = 2.0  # Going for a bold change
+modulated_complex_grid = np.sin(modulation_factor * xx) + 1j * np.cos(modulation_factor * image_normalized) * np.sin(modulation_factor * yy)
+^
+|__This fixed it but output is deep fried
+
+modulated_iteration_count = np.zeros_like(modulated_complex_grid, dtype=np.float64)
+modulated_roots = np.zeros_like(modulated_complex_grid, dtype=np.complex128)
+
+modulation factor function likely another possible thing to vary in video
