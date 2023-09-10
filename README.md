@@ -1,5 +1,5 @@
 ## Newton Fractal Image Injection
-We process any given mathematical function to extract its real and imaginary components. We then compute the derivative of these expressions. Leveraging OpenCL, we inject these functions into a kernel alongside an image. This image serves as the starting point for our Newton's method iterations. The result is delivered to the frontend for visualization
+We process any given mathematical function into its real and imaginary equivalent expressions. We then compute the derivative of these expressions. We inject these functions into an OpenCL kernel alongside an image. This image is then injected into the first iteration of the Newton's Method algorithm. The result is delivered to the frontend for visualization.
 
 Install requirements
 ```bash
