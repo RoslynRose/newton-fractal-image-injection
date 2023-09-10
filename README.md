@@ -1,5 +1,5 @@
 ## Newton Fractal Image Injection
-In this project, we take an arbitrary math function, compute its real and imaginary equivalent function expressions, compute derivative functions' expressions, inject those into an openCL kernel, along with an image. We need inject the image into the first iteration of newton's method then output the result to the frontend.
+We process any given mathematical function to extract its real and imaginary components. We then compute the derivative of these expressions. Leveraging OpenCL, we inject these functions into a kernel alongside an image. This image serves as the starting point for our Newton's method iterations. The result is delivered to the frontend for visualization
 
 Install requirements
 ```bash
